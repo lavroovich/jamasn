@@ -4,6 +4,7 @@
 """
 from flask import Flask, request, jsonify
 import subprocess
+import sys
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ def get(ip):
     cached = False
 
     result = subprocess.run(
-        ["python", "zASN_V4a.py", ip],
+        [sys.executable, "main.py", ip],
         capture_output=True,
         text=True,
         timeout=5
