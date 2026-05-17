@@ -33,7 +33,13 @@ def get(ip):
 @app.route('/')
 def route():
     ip = request.args.get('ip')
-
+    if not ip:
+        return jsonify({
+            "cool": False,
+            "displayData": "No IP provided",
+            "cached": False,
+            "returncode": 2
+        }), 400
     disp, isCache, cool, code = get(ip)
 
     return jsonify({
@@ -41,7 +47,7 @@ def route():
         "displayData": disp,
         "cached": isCache,
         "returncode": code
-    })
+    }) , 200
     
 if __name__ == "__main__":
     app.run()
